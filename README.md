@@ -9,5 +9,5 @@ For information, run `test_sio2.py --help`
 
 
 ## Enviroment & requirements
-- Python 3 (tested on 3.10.6)
+- Python 3.10 (tested on 3.10.6, may work with 3.9)
 - Linux
