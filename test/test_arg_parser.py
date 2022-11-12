@@ -1,8 +1,7 @@
 import sys
 
 sys.path.append("../src")
-# Uncomment if when debugging python is having trouble importing arg_parser
-# sys.path.append("./src")
+sys.path.append("./src")
 
 import unittest
 import arg_parser
