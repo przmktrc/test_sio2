@@ -1,7 +1,7 @@
 # Test_sio2
 
 ## Overview
-test_sio2 is a simple Python script to test if the program gives correct output given certain input. Originally used for on-line programming contest.
+test_sio2 is a simple Python script to test if the program gives correct output given certain input. Originally used for on-line programming contests.
 
 
 ## How to use it
