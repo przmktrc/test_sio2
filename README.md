@@ -5,7 +5,15 @@ test_sio2 is a simple Python script to test if the program gives correct output 
 
 
 ## How to use it
-For information, run `test_sio2.py --help`
+The most basic use is
+```
+test_sio2 -e <executable> <test_dirs>...
+```
+
+For more information, run
+```
+test_sio2 --help
+```
 
 
 ## Enviroment & requirements
