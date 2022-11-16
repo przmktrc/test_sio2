@@ -1,10 +1,9 @@
 import sys
 
-sys.path.append("../")
-
 import os
 import PyArg
 import re
+import subprocess
 from typing import Optional, cast
 
 
@@ -36,7 +35,15 @@ def get_last_part(path: str) -> str:
 
 
 
+def generate_tempfile() -> str:
+    return subprocess.run("mktemp", capture_output=True, text=True).stdout[:-1]
+
+
+
 class Config():
+    run_exec_cmd: str = "{exec} < {in_file} > {temp_file}"
+    run_custom_checker_cmd: str = "{checker} < {temp_file}"
+
     keep_temp: bool = True
     verbose: bool = False
     exec_path: str = ""
@@ -87,6 +94,9 @@ class Config():
         self.exec_path = ""
         self.custom_checker_path = None
         self.test_dirs = []
+
+    def is_using_custom_checker(self) -> bool:
+        return self.custom_checker_path != None
 
 
 

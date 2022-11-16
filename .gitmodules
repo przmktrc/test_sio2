@@ -1,3 +1,9 @@
 [submodule "PyArg"]
 	path = PyArg
 	url = https://github.com/przmktrc/PyArg.git
+[submodule "src/PyAr"]
+	path = src/PyAr
+	url = https://github.com/przmktrc/PyArg.git
+[submodule "src/PyArg"]
+	path = src/PyArg
+	url = https://github.com/przmktrc/PyArg.git

@@ -33,6 +33,10 @@ class TestHelperFunctions(unittest.TestCase):
                          "testing something here")
         self.assertEqual(get_last_part("same_out-test"), "same_out-test")
 
+    def test_generate_tempfile(self) -> None:
+        for i in range(0, 10):
+            self.assertTrue(is_valid_path(generate_tempfile()))
+
 
 
 class TestConfigWithSetValues(unittest.TestCase):
@@ -61,6 +65,7 @@ class TestConfigWithSetValues(unittest.TestCase):
                                ["--exec", "some/nonexistant-path"])
 
     def test_parsed_existing_checker(self) -> None:
+        self.assertTrue(config.is_using_custom_checker())
         try:
             self.assertEqual(config.custom_checker_path,
                              path_to_here + "/test/sample project repeater/checker.sh")
@@ -87,6 +92,7 @@ class TestConfigWithSetValues(unittest.TestCase):
         config.reset()
         self.assertFalse(config.verbose)
         self.assertTrue(config.keep_temp)
+        self.assertFalse(config.is_using_custom_checker())
 
 
 
