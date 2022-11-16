@@ -1,0 +1,5 @@
+.vscode/
+__pycache__/
+.mypy_cache
+path_to_here.py
+test_sio2
