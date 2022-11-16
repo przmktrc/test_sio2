@@ -1,6 +1,7 @@
 install: uninstall configure runner
 	ln -s $(shell pwd)/test_sio2 ~/bin/test_sio2
 
+
 uninstall:
 	if [ -L ~/bin/test_sio2 ]; then rm -f ~/bin/test_sio2; fi
 
@@ -19,3 +20,7 @@ runner:
 
 clean:
 	rm -rf __pycache__ src/__pycache__ .mypy_cache src/.mypy_cache test_sio2
+
+
+test: configure
+	for testfile in ./test/*.py; do python $$testfile; done
