@@ -68,21 +68,27 @@ class Config():
         self.keep_temp = False
 
     def set_exec(self, _1, parser: PyArg.ArgParser) -> None:
-        self.exec_path = os.getcwd() + "/" + parser.get_next_arg()
-        if not is_valid_path(self.exec_path):
-            raise InvalidConfig(f"Invalid executable path: \"{self.exec_path}\"")
+        to_set = os.getcwd() + "/" + parser.get_next_arg()
+        if is_valid_path(to_set):
+            self.exec_path = to_set
+        else:
+            raise InvalidConfig(f"Invalid executable path: \"{to_set}\"")
 
     def set_custom_checker(self, _1, parser: PyArg.ArgParser) -> None:
-        self.custom_checker_path = os.getcwd() + "/" + parser.get_next_arg()
-        if not is_valid_path(self.custom_checker_path):
-            raise InvalidConfig(f"Invalid checker path: \"{self.custom_checker_path}\"")
+        to_set = os.getcwd() + "/" + parser.get_next_arg()
+        if is_valid_path(to_set):
+            self.custom_checker_path = to_set
+        else:
+            raise InvalidConfig(f"Invalid checker path: \"{to_set}\"")
 
     def add_test_dir(self, dir: str, _2) -> None:
         if dir == "": return
 
-        self.test_dirs.append(os.getcwd() + "/" + dir)
-        if not is_valid_path(self.test_dirs[-1]):
-            raise InvalidConfig(f"Invalid test dir: \"{self.test_dirs[-1]}\"")
+        to_add = os.getcwd() + "/" + dir
+        if is_valid_path(to_add):
+            self.test_dirs.append(to_add)
+        else:
+            raise InvalidConfig(f"Invalid test dir: \"{to_add}\"")
 
     def parse_argv(self, argv: list[str] = sys.argv[1:]) -> None:
         self.reset()
