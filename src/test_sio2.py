@@ -6,6 +6,8 @@ from config import *
 import subprocess
 import filecmp
 from typing import cast
+import colorama
+from colorama import Style, Fore, Back
 
 
 
@@ -13,6 +15,9 @@ class Printer():
     current_indent: int = 0
     spaces_per_indent: int = 3
     is_print_pending: bool = False
+
+    def colored(self, message: str, *modifiers: colorama.ansi.AnsiCodes) -> str:
+        return "".join(modifiers) + message + Style.RESET_ALL
 
     def verbose_print(self, message: str) -> "Printer":
         if config.verbose:
@@ -82,7 +87,9 @@ class Tester():
             if is_correct:
                 number_correct += 1
 
-        printer.deindent().end_pending_print("OK" if number_total == number_correct else "WRONG")
+        printer.deindent().end_pending_print(
+            printer.colored((printer.colored("OK", Fore.GREEN) if number_total == number_correct
+                             else printer.colored("WRONG", Fore.RED, Back.WHITE)), Style.BRIGHT))
 
         return (get_last_part(test_dir), number_total, number_correct)
 
@@ -94,7 +101,9 @@ class Tester():
         in_file = test_dir + "/in/" + in_file
 
         if not is_valid_path(out_file):
-            printer.always_print(f"File \"{in_last_part}\"".ljust(30) + "MISSING_OUT")
+            printer.always_print(f"File \"{in_last_part}\"".ljust(30)
+                                 + printer.colored("MISSING_OUT", Fore.RED, Style.BRIGHT))
+            return False
 
         subprocess.run(config.run_exec_cmd.format(exec=remove_blank_whitespaces(config.exec_path),
                                                   in_file=remove_blank_whitespaces(in_file),
@@ -104,9 +113,11 @@ class Tester():
         is_correct = self.is_correct(out_file, temp_file)
 
         if is_correct:
-            printer.verbose_print(f"File \"{in_last_part}\"".ljust(30) + "OK")
+            printer.verbose_print(f"File \"{in_last_part}\"".ljust(30)
+                                  + printer.colored("OK", Style.BRIGHT, Fore.GREEN))
         else:
-            printer.always_print(f"File \"{in_last_part}\"".ljust(30) + "WRONG")
+            printer.always_print(f"File \"{in_last_part}\"".ljust(30)
+                                 + printer.colored("WRONG", Style.BRIGHT, Fore.RED))
 
         return is_correct
 
@@ -122,9 +133,13 @@ class Tester():
     def print_results(self) -> None:
         printer.always_print("Result:").indent()
         for result in self.results:
+            wrong_part = "WRONG: {:>4}"
+            if result[2] != result[1]:
+                wrong_part = printer.colored(wrong_part, Style.BRIGHT, Back.WHITE, Fore.RED)
+
             printer.always_print(
                 f"Test dir \"{result[0]}\"".ljust(40) +
-                f"TOTAL: {result[1]:>4}   CORRECT: {result[2]:>4}   WRONG: {result[1] - result[2]:>4}"
+                f"TOTAL: {result[1]:>4}   CORRECT: {result[2]:>4}   {wrong_part.format(result[1] - result[2])}"
             )
 
 
