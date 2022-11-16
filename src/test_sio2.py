@@ -67,8 +67,8 @@ class Tester():
     def test_directory(self, test_dir: str) -> Result:
         number_correct = number_total = 0
 
-        printer.start_pending_print("Testing directory: \"{}\"".format(
-            get_last_part(test_dir)).ljust(45)).indent()
+        printer.start_pending_print(
+            f"Testing directory: \"{get_last_part(test_dir)}\"".ljust(45)).indent()
 
         in_dir = test_dir + "/in/"
 
@@ -94,12 +94,7 @@ class Tester():
         in_file = test_dir + "/in/" + in_file
 
         if not is_valid_path(out_file):
-            printer.always_print("File \"{}\"".format(in_last_part).ljust(30) + "MISSING_OUT")
-
-        # print("   > Command: \"{}\"".format(
-        #     config.run_exec_cmd.format(exec=remove_blank_whitespaces(config.exec_path),
-        #                                in_file=remove_blank_whitespaces(in_file),
-        #                                temp_file=remove_blank_whitespaces(temp_file))))
+            printer.always_print(f"File \"{in_last_part}\"".ljust(30) + "MISSING_OUT")
 
         subprocess.run(config.run_exec_cmd.format(exec=remove_blank_whitespaces(config.exec_path),
                                                   in_file=remove_blank_whitespaces(in_file),
@@ -109,9 +104,9 @@ class Tester():
         is_correct = self.is_correct(out_file, temp_file)
 
         if is_correct:
-            printer.verbose_print("File \"{}\"".format(in_last_part).ljust(30) + "OK")
+            printer.verbose_print(f"File \"{in_last_part}\"".ljust(30) + "OK")
         else:
-            printer.always_print("File \"{}\"".format(in_last_part).ljust(30) + "WRONG")
+            printer.always_print(f"File \"{in_last_part}\"".ljust(30) + "WRONG")
 
         return is_correct
 
