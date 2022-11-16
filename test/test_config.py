@@ -4,7 +4,7 @@ sys.path.append("./src")
 sys.path.append(".")
 
 import unittest
-from config import remove_blank_whitespaces, is_valid_path, config, InvalidConfig
+from config import *
 from path_to_here import path_to_here
 
 
@@ -26,6 +26,12 @@ class TestHelperFunctions(unittest.TestCase):
         self.assertFalse(is_valid_path("/nonexistant"))
         self.assertTrue(is_valid_path(path_to_here + "/test"))
         self.assertTrue(is_valid_path(path_to_here + "/test/sample project repeater"))
+
+    def test_get_last_part(self) -> None:
+        self.assertEqual(get_last_part("test/blah blah/helloworld/test1"), "test1")
+        self.assertEqual(get_last_part("test/blah blah/helloworld/testing something here"),
+                         "testing something here")
+        self.assertEqual(get_last_part("same_out-test"), "same_out-test")
 
 
 

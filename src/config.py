@@ -31,6 +31,11 @@ def is_valid_path(path: str) -> bool:
 
 
 
+def get_last_part(path: str) -> str:
+    return path.split("/")[-1]
+
+
+
 class Config():
     keep_temp: bool = True
     verbose: bool = False
