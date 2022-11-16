@@ -17,5 +17,8 @@ test_sio2 --help
 
 
 ## Enviroment & requirements
-- Python 3.10 (tested on 3.10.6, may work with 3.9)
 - Linux
+- Python 3.10 (tested on 3.10.6, may work with 3.9)
+- subprocess
+- filecmp
+- colorama
