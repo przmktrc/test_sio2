@@ -150,6 +150,8 @@ def main() -> None:
     if config.was_help_printed:
         exit(0)
 
+    config.validate()
+
     tester = Tester()
     tester.test_all().print_results()
 

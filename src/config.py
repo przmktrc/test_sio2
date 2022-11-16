@@ -111,6 +111,13 @@ class Config():
     def is_using_custom_checker(self) -> bool:
         return self.custom_checker_path != None
 
+    def validate(self) -> None:
+        if self.exec_path == "":
+            raise InvalidConfig("Executable path not specified")
+
+        if self.test_dirs == []:
+            raise InvalidConfig("No test dir specified")
+
 
 
 config = Config()
