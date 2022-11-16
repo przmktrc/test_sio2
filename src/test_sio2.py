@@ -147,6 +147,9 @@ class Tester():
 def main() -> None:
     config.parse_argv()
 
+    if config.was_help_printed:
+        exit(0)
+
     tester = Tester()
     tester.test_all().print_results()
 

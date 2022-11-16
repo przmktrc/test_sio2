@@ -5,6 +5,7 @@ import PyArg
 import re
 import subprocess
 from typing import Optional, cast
+from print_help import print_help
 
 
 
@@ -47,6 +48,7 @@ class Config():
     keep_temp: bool = True
     verbose: bool = False
     exec_path: str = ""
+    was_help_printed: bool = False
     custom_checker_path: Optional[str] = None
     test_dirs: list[str] = []
 
@@ -58,6 +60,7 @@ class Config():
             ("--notemp", self.set_nokeep_temp),
             (["-e", "--exec"], self.set_exec),
             ("--checker", self.set_custom_checker),
+            (["-h", "--help"], self.print_help),
         ],
                                       default_arg_actor=self.add_test_dir)
 
@@ -80,6 +83,10 @@ class Config():
             self.custom_checker_path = to_set
         else:
             raise InvalidConfig(f"Invalid checker path: \"{to_set}\"")
+
+    def print_help(self, _1, _2) -> None:
+        print_help()
+        self.was_help_printed = True
 
     def add_test_dir(self, dir: str, _2) -> None:
         if dir == "": return
