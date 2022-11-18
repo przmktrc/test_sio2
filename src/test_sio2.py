@@ -131,7 +131,7 @@ class Tester():
             return filecmp.cmp(out_file, temp_file)
 
     def print_results(self) -> None:
-        printer.always_print("Result:").indent()
+        printer.always_print("Results:").indent()
         for result in self.results:
             wrong_part = "WRONG: {:>4}"
             if result[2] != result[1]:
