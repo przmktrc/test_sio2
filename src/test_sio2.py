@@ -100,7 +100,7 @@ class Tester():
                      + ".out" if config.keep_temp else generate_tempfile())
         in_file = test_dir + "/in/" + in_file
 
-        if not is_valid_path(out_file):
+        if not is_valid_path(out_file) and not config.is_using_custom_checker():
             printer.always_print(f"File \"{in_last_part}\"".ljust(30)
                                  + printer.colored("MISSING_OUT", Fore.RED, Style.BRIGHT))
             return False
